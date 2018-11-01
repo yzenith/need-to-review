@@ -13,7 +13,7 @@
   [3]. vim rsa-id.pub
     > this will help read ssh public file
 
- 2 how to download your repo from Github
+ 2. how to download your repo from Github
 
   [1]. mkdir your-folder
     > this will make a folder for clone the repo
