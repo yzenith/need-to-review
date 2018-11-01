@@ -23,12 +23,20 @@
   2. git add .
   > this is the command for stage the changes
 
-  3. git -m commit "xxx"
+  3. git commit -m "xxx"
   > this is for log the commit name
 
-  4. git merge "branch name just create"
+    [1]. git status
+      > this command is for checking if changes has been staged and commit
+
+    [2]. git diff
+      > this command will tell you where the code changes compare to the original
+
+  4. git checkout master
+  > this command will make you switch to master brand!
+
+  5. git merge "branch name just create"
   > this is for merge the branch to master
 
-  5. git push
-  > this will push all changes to github repo
-  
+  6. git push
+  > this will push all changes to Github repo
