@@ -14,3 +14,21 @@
 >>> So, you need to "mkdir" one folder first, and "cd" there then "git init".
 >>> the last step type "git clone git@xxxxxxxxxxxx"
 >>> It's done.
+
+# the followings are the steps to create and push the changes
+
+  1. git checkout -b "branch-name"
+  > this is the command for create new branch
+
+  2. git add .
+  > this is the command for stage the changes
+
+  3. git -m commit "xxx"
+  > this is for log the commit name
+
+  4. git merge "branch name just create"
+  > this is for merge the branch to master
+
+  5. git push
+  > this will push all changes to github repo
+  
