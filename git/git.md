@@ -1,4 +1,4 @@
-# this place is for tips about Git syntax
+# This place is for tips about Git commands
 
  1. how to set up git and connect it on your github repo
 
