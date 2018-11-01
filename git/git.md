@@ -2,7 +2,7 @@
 
  1. how to set up git and connect it on your github repo
 
-    ### Mac has installed git and ssh-keygen.
+    ### Mac has installed <git> and <ssh-keygen>
 
   [1]. sh-keygen -t rsa
     > this command to generate a public ssh key.
@@ -25,7 +25,7 @@
     > this command will help download the source code from repo
 
 
-# the followings are the steps to create and push the changes
+# The followings are the steps to create and push the changes
 
   1. git checkout -b "branch-name"
   > this is the command for create new branch
