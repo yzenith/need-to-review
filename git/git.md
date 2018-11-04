@@ -45,6 +45,10 @@
     [3]. git log
       > this wanna help log out all brand merge history
 
+    [4]. can not add .
+      > if you are commit in the file path, then you cannot add
+      > so you need to go back to the changed folder path then add .
+
   4. git checkout master
   > this command will make you switch to master brand!
 
