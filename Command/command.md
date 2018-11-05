@@ -20,4 +20,23 @@
 
 	7. subl .
 	> this will open the current location on sublime
+
+	8. cat file path
+	> this command is useful when you want to just reading file's content but do not open it.
+
+	9. imgcat img.gif
+	> this will help make read img only
+	> for the case you forget which img it is
+
+	10. command chain && 
+	> this will help excute two two or more command in one line one by one
+
+	11. lsof -i:80
+	> this is a command for checking the port
+	> but from my end, I have no idea how it works
+	> probably need to using a port first then use this command
+
+	12. pbcopy < [file.name]
+	> copy the file content to clipboard
+	> this will mostly happened on copy ssh key
 	
