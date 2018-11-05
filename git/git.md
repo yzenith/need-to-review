@@ -57,3 +57,7 @@
 
   6. git push
   > this will push all changes to Github repo
+
+  7. git pull
+  > this command is for update local folder from remote side(github)
+  > it will help make continue developing the project.
