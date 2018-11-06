@@ -274,7 +274,9 @@
 #### Button group
 * btn-group
     * this need to use in div element, in another word, it should be used in parent level
-        * for example:  "<div class="btn-group"><button class="btn btn-primary"></button><button btn btn-secondary></button><button btn btn-primary></button></div>"
+         ``` 
+         for example:  "<div class="btn-group"><button class="btn btn-primary"></button><button btn btn-secondary></button><button btn btn-primary></button></div>"
+         ```
         * all child level buttons will be align together in a line
 
 #### Button toolbar
@@ -294,16 +296,18 @@
         * class="dropdown-item" on a tags
 
     * code snippet
-    > <div class="dropdown">
-    >   <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-    >       My Dropdown
-    >   </button>
-    >   <div class="dropdown-menu">
-    >       <a class="dropdown-item" href="#"> Link one </a>
-    >       <a class="dropdown-item" href="#"> Link two </a>
-    >       <a class="dropdown-item" href="#"> Link three </a>
-    >    </div>
-    > <div>
+        ```
+         <div class="dropdown">
+           <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+               My Dropdown
+           </button>
+           <div class="dropdown-menu">
+               <a class="dropdown-item" href="#"> Link one </a>
+               <a class="dropdown-item" href="#"> Link two </a>
+               <a class="dropdown-item" href="#"> Link three </a>
+            </div>
+         <div>
+         ```
 
 #### SPLIT DROPDOWNS
 * a little different between above
@@ -312,15 +316,17 @@
         * put divider inside a tags
             * dorpdown-divider
 * code snippet
-> <div class="btn-group">
->   <button class="btn btn-primary" type="button">My button</button>
->   <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
->       <span>Toggle Dropdown</span>
->   </button>
->   <div class="dropdown-menu">
->       <a href="#" class="dropdown-item"> Link one </a>
->       <a href="#" class="dropdown-item"> Link two </a>
->       <div class="dropdown-divider"></div>
->       <a href="#" class="dropdown-item"> Link three </a>
->   </div>
-> </div>
+    ```
+     <div class="btn-group">
+       <button class="btn btn-primary" type="button">My button</button>
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+          <span>Toggle Dropdown</span>
+        </button>
+       <div class="dropdown-menu">
+           <a href="#" class="dropdown-item"> Link one </a>
+           <a href="#" class="dropdown-item"> Link two </a>
+           <div class="dropdown-divider"></div>
+           <a href="#" class="dropdown-item"> Link three </a>
+       </div>
+     </div>
+     ```
