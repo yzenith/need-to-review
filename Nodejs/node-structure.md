@@ -1,11 +1,1 @@
-# this file is for nodejs structure
-
-* config folder
-	* key.js or whatever you named
-	> this file should contain the database info
-	> for instance, the mlab connection string
-
-	* module.exports an object for futurn use
-	>  code snippet here:"module.exports = { mongooUrl: 
-mongodb://<dbuser>:<dbpassword>@ds151943.mlab.com:51943/<thename>
- }"
+# this file is for nodejs structure* config folder	* key.js or whatever you named			* this file should contain the database info			* for instance, the mlab connection string	* module.exports an object for futurn use		```	module.exports = { mongooUrl: 		mongodb://<dbuser>:<dbpassword>@ds151943.mlab.com:51943/<thename> 	}   	``` * create routes folder under root 	* create API folder for all API request 	* in server.js set up routes 		* create users.js  		* create profiles.js 		* create posts.js 		```			const users = require('./routes/api/users');			const profile = require('./routes/api/profile');			const posts = require('./routes/api/posts');				// this will cause error, since the files are not set up routers yet 			app.use('/api/users',users);			app.use('/api/profile',profile);			app.use('/api/posts',posts); 		``` 	* then go to users.js 		* always go with /test first, this is a good habbit 		```			const express = require('express');			const router = express.Router();			// @route  GET api/users/test			// @desc  Tests post route			// @access  Public			router.get('/test',(req, res) => res.json({msg: "test worked"})); // since server.js set up /api/users 			module.exports = router; // basiclly you can export API file to router 		``` 	* the URL should be worked with /api/users/test 		* server.js url part will use first 		* make notes on each route will be a good habbit		* create a file called .gitignore		* this file will not upload the files or folders mentioned in .gitignore		* then locate to your work folder, and run following				```					git init				```	
