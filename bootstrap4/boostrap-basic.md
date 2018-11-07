@@ -330,3 +330,121 @@
        </div>
      </div>
      ```
+
+* Colors
+    * navbar-light => this will control the text color for light theme? 
+        * you can understand as navbar for light, so the text should be black
+    * bg-dark => this will control background color
+    * bg-sucess => green navbar
+    * bg-primary => blue navbar
+
+* fixed
+    * fixed-top
+
+        ```
+            <nav class="navbar fixed-top navbar-dark bg-dark">
+                <a href="#" class="navbar-brand">Navbar fixed top</a>
+            </nav>
+        ```
+    * fixed-bottom
+        * check above
+    * sticky top
+        * when the screen go down it will alway in the top
+            you probably need offset, which can help navbar and sticky part not mess together
+
+* NAVS
+    * nav nav-pills
+
+        ```
+           <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Link1</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">Link2</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Link3</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Link4</a>
+                </li>
+            </ul>
+        ```
+    * Horizontal Align
+        * add justify-content-center to ul element above
+    * right Align
+        * add justify-content-end to ul element above
+    * the default will to left
+    * vertical
+        * add flex-column to ul element
+    * fill & justify
+        * use nav-fill
+
+#### list groups
+* list-group 
+    ```
+        <ul class="list-group">
+            <li class="list-group-item">My list item one</li>
+            <li class="list-group-item">My list item two</li>
+            <li class="list-group-item">My list item three</li>
+            <li class="list-group-item">My list item four</li>
+        </ul>
+    ```
+* list group links
+    * list-group
+        * list-group-item active or not
+
+* contextual classes
+    * list-group
+        * list-group-item list-group-item-primary
+
+* flush list group
+    * list-group list-group-flush
+        * list-group-item active or not
+    * this will make whole list no borders
+
+* Badge
+    * list-group
+        * list-group-item
+            * this should be used for a link with how many posts
+
+        ```
+            <ul class="list-group">
+                <li class="list-group-item">My list Item One</li>
+                <li class="list-group-item">My list Item Two
+                    <span class="badge badge-primary">30</span>
+                </li>
+                <li class="list-group-item">My List Item Three</li>
+                <li class="list-group-item">My List Item four</li>
+            </ul>
+        ```
+* BreadCrumb
+    * this is for links go back to user profile, etc
+        ```
+            <ol class="breadcrum">
+                <li class="breadcrum-item">
+                    <a href="#">Home</a>
+                </li>
+            </ol>
+            <ol class="breadcrum">
+                <li class="breadcrum-item">
+                    <a href="#">Home</a>
+                </li>
+                <li class="breadcrum-item active">Users</li>
+            </ol>
+            <ol class="breadcrum">
+                <li class="breadcrum-item">
+                    <a href="#">Home</a>
+                </li>
+                <li class="breadcrum-item">
+                    <a href="#">Users</a>
+                </li>
+                <li class="breadcrum-item active">Brad</li>
+            </ol>
+        ```
+* Forms
+    * div inside form tag but parent of input tag
+        * form-group => which will give margin-bottom 
+        * form-control => stylish input tag
+        * form-control-lg => make input show bigger
