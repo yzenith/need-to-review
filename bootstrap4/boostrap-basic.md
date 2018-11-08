@@ -448,3 +448,320 @@
         * form-group => which will give margin-bottom 
         * form-control => stylish input tag
         * form-control-lg => make input show bigger
+        * form-control-sm => smaller
+        * form-text text-muted  => small message under input/ this will be like a note
+        * readonly in input => then this input can not type anything
+   
+    * select / textarea
+        * form-group on parent div
+            * form-control on select tag
+
+    * file input
+        * form-group on parent div
+            * form-control-file on file input
+                * use small tag for help text which also need form-text and text-muted
+
+    * custom file input
+        * custom-file on parent div
+            * custom-file-input on input
+            * custom-file-lable
+            ```
+            <div class="custom-file">
+                <input class="custom-file-input" id="myfile" type="file">
+                <label class="custom-file-label" for="myfile">choose one</label>
+            </div>
+            ```
+    * range
+        * form-group
+            * custom-range 
+                * the range have nice attribute, look at below
+                * min="1" max="5" step="1" value="1"
+                    * min and max will represent the left to right
+                    * step and value means each move how it changed
+     
+     * inline-form
+        * form-inline on parent div tag
+            * form-control on input
+
+            * form-check for div tag on check function
+                * form-check-label for label tag
+                * form-check-input for check input
+
+    * form row
+        * form-row on parent div
+            * col on lower level div
+                * form-control on inside input
+
+#### Validation
+
+* form-group on parent div
+    * form-control on input 
+
+##### normally use javascript add this class
+* is-valid / go green
+* is-invalid / go red
+* invalid-feedback on error message
+
+
+
+
+#### input group
+
+* input-group on parent div
+    * input-group-prepend
+        * input-group-text
+    * form-control
+
+    ```
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="inout-group-text">
+                @
+            </span>
+        </div>
+        <input class="form-control" type="text" placeholder="Username">
+    </div>
+    ```
+* input-group-append / this will let element stick behand, it is a oppstie way of prepend
+    * prepend and append is used a lot of search box
+
+#### alerts & progress bar
+
+* works on login /logged out
+    * alert alert-primary  // first alert should be need
+    * alert alert-success
+    * alert alert-danger
+    * alert alert-info
+    * etc...
+
+* Dismissable alert
+    * alert alert-success alert-dismissable 
+        * class="close" date-dismiss="alert" // this will let alert disappear
+
+        ```
+        <div class="alert alert-success alert-dismissable">
+            <button class="close" type="button" data-dismiss="alert">
+                <span>&times;</span>
+            </button>
+            <strong>Dismissable</strong> Blog post added
+        </div>
+        ```
+
+* extra content
+    * alert alert-success
+        * alert-heading
+        
+        ```
+        <div class="alert alert-success">
+            <h4 class="">Congrats!</h4>
+            <p>askjdbkjsbgnsdfhgjkdsngkdfsngkjsndjfgksdnfjg</p>
+            <hr>
+            <p>jkasldkjfhsajkdhfkasjhdfkjsalhd</p>
+        </div>
+        ```
+
+#### Progress Bar
+* class="progrss" on parent div
+    * class="progress-bar" style="width:35%" on lower level div
+        * bg-success progrss-bar to change the color
+
+    ```
+    <div class="progress">
+        <div class="progress-bar" style="width:35%">35%</div>
+    </div>
+    ``` 
+
+* progress height
+    * need style="height:xxpx" next to class="progress"
+
+* striped
+    * progress-bar-striped progress-bar
+
+* animated
+    * progress-bar-striped progress-bar progress-bar-animated
+
+
+#### tables and pagination
+
+* class="table"
+
+* Inverse dark table
+    * table table-dark 
+
+* table head inverse
+    * table class on parent
+        * thead-dark on thead element
+
+* striped table
+    * table table-striped 
+    
+* Bordered-table
+    * table table-bordered
+
+* borderless table
+    * table table-borderless
+
+* hoverable
+    * table table-hover //when mouse hover, it will show grey background
+
+* contentual Class
+    * table 
+        * table-sucess on tr tag
+
+* small table
+    * table table-sm
+
+* respponsive table
+    * table-responsive on div parent level of table
+
+
+#### pagination
+* class="pagination" on ul tag
+    * class="page-item" on li
+        * page-link on a tag
+
+        ```
+        <nav>
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link">Previous</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link active">2</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link">3</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link">Next</a>
+                </li>
+            </ul>
+        </nav>
+        ```
+* center pagination
+    * pagination justify-content-center / justify-content-end / pagination-lg
+    
+    * arrow as previous/next
+
+        ```
+        old one:
+        <a class="page-link">Previous</a>
+
+        change to:
+        <span>&lasquo;</span>
+        <span class="sr-only">Previous</span>
+
+        and:
+        <span>&rlasquo;</span>
+        <span class="sr-only">Previous</span>
+        ```
+
+#### cards
+* class="card" on top div
+    * class="card-body" on lower div
+
+* simple card structure
+    * card style="width:20rem"
+        * card-body
+            * card-title
+            * card-subtitle text-muted
+            * card-text
+
+* card with image
+    * card
+        * card-img-top //on img tag
+            * there is an API so random img 
+                ```
+                https://source.unsplash.com/random/300x200
+                ```
+        * card-body
+        * card-title
+        * card-text
+
+* card with header
+    * card 
+        * card-header
+        * card-body
+        * card-text
+
+* header, footer center
+    * card text-center
+        * card-header
+        * card-body
+        * card-text
+        * card-footer text-muted
+
+* card with nav/tabs
+    * card
+        * card-header
+            * nav nav-tabs card-header-tabs
+                * nav-item
+                    * nav-link
+            * card-body
+                * card-title
+                * card-text
+
+* image overlays
+    * card
+        * card-img
+        * card-img-overlay // here do not use card-body
+            * card-title
+            * card-text
+
+* background-color
+    * card bg-primary
+        * card-header
+        * card-body
+            * card-title
+            * card-text
+
+* card-outline
+    * card border-outline-primary
+
+* card-columns //responsive
+    * card-columns
+        * card
+            * card-img-top img-fluid // what is the imgae fluid
+
+        * card card-dark 
+            * card-bodyquote
+            * bodyquote-footer
+                * source-title
+
+
+#### media Object //not frequently used
+* media 
+    * media-body
+
+##### nest media objects
+* media-object 
+    * media
+        * media-body
+
+* top aligned
+    * media
+        * media-body
+    
+* center aligned
+    * media
+        * align-self-end // on img 
+
+##### media list
+* list-unstyled //on ul tag
+    * media // on li tag
+
+
+
+#### jumptron
+* jumptron text-center
+    * display-4 //this is size
+    * lead //on first paragragh
+    * btn btn-primary btn-lg
+
+
+* Fluid Jumptron   // this is will full wide
+    * jumptron jumptron-fluid // on top level div
+        * container // on lower div
