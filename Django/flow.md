@@ -12,12 +12,52 @@
 2. write view first
     the view.py is the place to name different page view and process the data then pass to template
     1. example below  
-   ```
+    ```
     from django.http import HttpResponse
 
     def index(request):
-        return HttpResponse("Hello, world. You're at the polls index.")
-   ```
+        latest_question_list = Question.objects.order_by('-pub_date')[:5]
+        template = loader.get_template('polls/index.html')
+        context = {
+            'latest_question_list': latest_question_list,
+        }
+        return HttpResponse(template.render(context, request))
+
+    def detail(request, question_id):
+        question = get_object_or_404(Question, pk=question_id)
+        return render(request, 'polls/detail.html', {'question': question})
+
+    def vote(request, question_id):
+        question = get_object_or_404(Question, pk=question_id)
+        try:
+            selected_choice = question.choice_set.get(pk=request.POST['choice'])
+        except (KeyError, Choice.DoesNotExist):
+            # Redisplay the question voting form.
+            return render(request, 'polls/detail.html', {
+                'question': question,
+                'error_message': "You didn't select a choice.",
+            })
+        else:
+            selected_choice.votes += 1
+            selected_choice.save()
+            # Always return an HttpResponseRedirect after successfully dealing
+            # with POST data. This prevents data from being posted twice if a
+            # user hits the Back button.
+            return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+    ```
+    2. use render()
+    ```
+    polls/views.py¶
+    from django.shortcuts import render
+
+    from .models import Question
+
+
+    def index(request):
+        latest_question_list = Question.objects.order_by('-pub_date')[:5]
+        context = {'latest_question_list': latest_question_list}
+        return render(request, 'polls/index.html', context)
+    ``` 
 
 3. write rule in urls.py
     1. the popurse for this file is for visit link
@@ -26,9 +66,10 @@
     from django.urls import path
 
     from . import views
-
+    app_name = 'polls'
     urlpatterns = [
-        path('', views.index, name='index'),
+        # ex: /polls/5/
+        path('<int:question_id>/', views.detail, name='detail'),
     ]
     ```
 
@@ -39,8 +80,10 @@
     from django.urls import include, path
 
     urlpatterns = [
-        path('polls/', include('polls.urls')),
-        path('admin/', admin.site.urls),
+        path('', views.index, name='index'),
+        path('<int:question_id>/', views.detail, name='detail'),
+        path('<int:question_id>/results/', views.results, name='results'),
+        path('<int:question_id>/vote/', views.vote, name='vote'),
     ]
     ```
 4. setup database
@@ -56,6 +99,7 @@ NAME - 数据库的名称。如果使用的是 SQLite，数据库将是你电脑
 
 5. create models, they are the database table
    1. create models
+   2. 给模型增加 __str__() 方法是很重要的，这不仅仅能给你在命令行里使用带来方便，Django 自动生成的 admin 里也使用这个方法来表示对象。
    ```
     polls/models.py
     from django.db import models
@@ -64,16 +108,24 @@ NAME - 数据库的名称。如果使用的是 SQLite，数据库将是你电脑
     class Question(models.Model):
         question_text = models.CharField(max_length=200)
         pub_date = models.DateTimeField('date published')
+        
+        def __str__(self):
+        return self.question_text
 
+        def was_published_recently(self):
+        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
     class Choice(models.Model):
         question = models.ForeignKey(Question, on_delete=models.CASCADE)
         choice_text = models.CharField(max_length=200)
         votes = models.IntegerField(default=0)
+
+        def __str__(self):
+        return self.choice_text
     ```
-    2. active models
+    3. active models
     ```
-    mysite/settings.py¶
+    mysite/settings.py
     INSTALLED_APPS = [
         'polls.apps.PollsConfig',
         'django.contrib.admin',
@@ -84,8 +136,74 @@ NAME - 数据库的名称。如果使用的是 SQLite，数据库将是你电脑
         'django.contrib.staticfiles',
     ]
     ```
-    3. migrate tables
+    4. migrate tables
     ```
     $ python manage.py makemigrations polls
+    $ python manage.py migrate
     ```
-6. 
+6. practice fetch data from django shell
+    ```
+    $ python manage.py shell
+    ```
+
+7. create a superadmin and add apps to admin panel
+   1.  add super uers
+   ```
+   $ python manage.py createsuperuser
+   Username: admin
+   Email address: admin@example.com
+   Password: **********
+   Password (again): *********
+   Superuser created successfully.
+   ```
+   2.  add apps to admin by using register()
+   ```
+    polls/admin.py¶
+    from django.contrib import admin
+
+    from .models import Question
+
+    admin.site.register(Question)
+   ```
+
+8. create template
+   1. index.html
+   ```
+   polls/templates/polls/index.html¶
+    {% if latest_question_list %}
+        <ul>
+        {% for question in latest_question_list %}
+            <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No polls are available.</p>
+    {% endif %}
+   ```
+   2. detail.html
+    ```
+    polls/templates/polls/detail.html¶
+    <h1>{{ question.question_text }}</h1>
+    <ul>
+    {% for choice in question.choice_set.all %}
+        <li>{{ choice.choice_text }}</li>
+    {% endfor %}
+    </ul>
+    ```
+
+9. how to use form properly
+    ```
+    polls/templates/polls/detail.html¶
+    <h1>{{ question.question_text }}</h1>
+
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+    {% csrf_token %}
+    {% for choice in question.choice_set.all %}
+        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+    {% endfor %}
+    <input type="submit" value="Vote">
+    </form>
+    ```
