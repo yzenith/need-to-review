@@ -1,11 +1,11 @@
 # Build Up Your APP
-   1. ### make sure Django installed ( python -m django --version )
-   2. ### startproject ( django-admin startproject mysite )
-   3. ### about run server ( python manage.py runserver ) # need to excute within manage.py folder
-      1. #### python manage.py runserver 8080  // using 8080
-      2. #### python manage.py runserver 0:8000  // using 0:8000
-      3. #### 会自动重新加载的服务器 runserver 用于开发的服务器在需要的情况下会对每一次的访问请求重新载入一遍 Python 代码。所以你不需要为了让修改代码生效而频繁的重新启动服务器。然而，一些动作，比如添加新文件，将不会触发自动重新加载，这时你得自己手动重启服务器。
-   4. ### start to create your app ( python manage.py startapp polls )
+   1.  make sure Django installed ( python -m django --version )
+   2.  startproject ( django-admin startproject mysite )
+   3.  about run server ( python manage.py runserver ) # need to excute within manage.py folder
+      1.  python manage.py runserver 8080  // using 8080
+      2.  python manage.py runserver 0:8000  // using 0:8000
+      3.  会自动重新加载的服务器 runserver 用于开发的服务器在需要的情况下会对每一次的访问请求重新载入一遍 Python 代码。所以你不需要为了让修改代码生效而频繁的重新启动服务器。然而，一些动作，比如添加新文件，将不会触发自动重新加载，这时你得自己手动重启服务器。
+1.  start to create your app ( python manage.py startapp polls )
 
 # Write View First
     the view.py is the place to name different page view and process the data then pass to template
@@ -251,13 +251,13 @@ NAME - 数据库的名称。如果使用的是 SQLite，数据库将是你电脑
             self.assertIs(future_question.was_published_recently(), False)
     ```
 
-    ### Run Test
+### Run Test
     ```
     python manage.py test polls
     ```
 
 
-    ### Failed Testing Below
+### Failed Testing Below
     ```
     System check identified no issues (0 silenced).
     F
@@ -276,7 +276,7 @@ NAME - 数据库的名称。如果使用的是 SQLite，数据库将是你电脑
     Destroying test database for alias 'default'...
     ```
 
-    ### Succeed Testing Below
+### Succeed Testing Below
     ```
     Creating test database for alias 'default'...
     System check identified no issues (0 silenced).
