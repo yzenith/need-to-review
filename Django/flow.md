@@ -13,37 +13,36 @@
     the view.py is the place to name different page view and process the data then pass to template
     1. example below  
     ```
-    from django.http import HttpResponse
+    polls/views.py¶
+    from django.http import HttpResponseRedirect
+    from django.shortcuts import get_object_or_404, render
+    from django.urls import reverse
+    from django.views import generic
 
-    def index(request):
-        latest_question_list = Question.objects.order_by('-pub_date')[:5]
-        template = loader.get_template('polls/index.html')
-        context = {
-            'latest_question_list': latest_question_list,
-        }
-        return HttpResponse(template.render(context, request))
+    from .models import Choice, Question
 
-    def detail(request, question_id):
-        question = get_object_or_404(Question, pk=question_id)
-        return render(request, 'polls/detail.html', {'question': question})
+    class IndexView(generic.ListView):
+        template_name = 'polls/index.html'
+        context_object_name = 'latest_question_list'
+
+        def get_queryset(self):
+            """Return the last five published questions."""
+            return Question.objects.order_by('-pub_date')[:5]
+
+
+    class DetailView(generic.DetailView):
+        model = Question
+        template_name = 'polls/detail.html'
+
+
+    class ResultsView(generic.DetailView):
+        model = Question
+        template_name = 'polls/results.html'
+
 
     def vote(request, question_id):
-        question = get_object_or_404(Question, pk=question_id)
-        try:
-            selected_choice = question.choice_set.get(pk=request.POST['choice'])
-        except (KeyError, Choice.DoesNotExist):
-            # Redisplay the question voting form.
-            return render(request, 'polls/detail.html', {
-                'question': question,
-                'error_message': "You didn't select a choice.",
-            })
-        else:
-            selected_choice.votes += 1
-            selected_choice.save()
-            # Always return an HttpResponseRedirect after successfully dealing
-            # with POST data. This prevents data from being posted twice if a
-            # user hits the Back button.
-            return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+        ... # same as above, no changes needed.
+        
     ```
     2. use render()
     ```
@@ -66,14 +65,18 @@
     from django.urls import path
 
     from . import views
+
     app_name = 'polls'
     urlpatterns = [
         # ex: /polls/5/
-        path('<int:question_id>/', views.detail, name='detail'),
+        path('', views.IndexView.as_view(), name='index'),
+        path('<int:pk>/', views.DetailView.as_view(), name='detail'),
+        path('<int:pk>/results/', views.ResultsView.as_view(), name='results'),
+        path('<int:question_id>/vote/', views.vote, name='vote'),
     ]
     ```
 
-    1. You need to add whole apps url to admin
+    2. You need to add whole apps url to admin
     ```
     mysite/urls.py¶
     from django.contrib import admin
@@ -191,7 +194,22 @@ NAME - 数据库的名称。如果使用的是 SQLite，数据库将是你电脑
     </ul>
     ```
 
-9. how to use form properly
+    2. results.html
+   ```
+   polls/templates/polls/results.html¶
+    <h1>{{ question.question_text }}</h1>
+
+    <ul>
+    {% for choice in question.choice_set.all %}
+        <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+    {% endfor %}
+    </ul>
+
+<a href="{% url 'polls:detail' question.id %}">Vote again?</a>
+
+   ```
+
+9.  how to use form properly
     ```
     polls/templates/polls/detail.html¶
     <h1>{{ question.question_text }}</h1>
