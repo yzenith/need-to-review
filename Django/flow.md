@@ -225,3 +225,62 @@ NAME - 数据库的名称。如果使用的是 SQLite，数据库将是你电脑
     <input type="submit" value="Vote">
     </form>
     ```
+
+10. Testing
+
+    ```
+    # confirm the future published post won't show in recently posts
+    polls/tests.py¶
+    import datetime
+
+    from django.test import TestCase
+    from django.utils import timezone
+
+    from .models import Question
+
+
+    class QuestionModelTests(TestCase):
+
+        def test_was_published_recently_with_future_question(self):
+            """
+            was_published_recently() returns False for questions whose pub_date
+            is in the future.
+            """
+            time = timezone.now() + datetime.timedelta(days=30)
+            future_question = Question(pub_date=time)
+            self.assertIs(future_question.was_published_recently(), False)
+    ```
+
+    # run test
+    ```
+    python manage.py test polls
+
+
+    # Failed Testing Below
+    System check identified no issues (0 silenced).
+    F
+    ======================================================================
+    FAIL: test_was_published_recently_with_future_question (polls.tests.QuestionModelTests)
+    ----------------------------------------------------------------------
+    Traceback (most recent call last):
+    File "/path/to/mysite/polls/tests.py", line 16, in test_was_published_recently_with_future_question
+        self.assertIs(future_question.was_published_recently(), False)
+    AssertionError: True is not False
+
+    ----------------------------------------------------------------------
+    Ran 1 test in 0.001s
+
+    FAILED (failures=1)
+    Destroying test database for alias 'default'...
+
+
+    # Succeed Testing Below
+    Creating test database for alias 'default'...
+    System check identified no issues (0 silenced).
+    .
+    ----------------------------------------------------------------------
+    Ran 1 test in 0.001s
+
+    OK
+    Destroying test database for alias 'default'...
+    ```
