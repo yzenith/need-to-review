@@ -1,17 +1,15 @@
-# this file is my personal Django App development flow
+# Build Up Your APP
+   1. ### make sure Django installed ( python -m django --version )
+   2. ### startproject ( django-admin startproject mysite )
+   3. ### about run server ( python manage.py runserver ) # need to excute within manage.py folder
+      1. #### python manage.py runserver 8080  // using 8080
+      2. #### python manage.py runserver 0:8000  // using 0:8000
+      3. #### 会自动重新加载的服务器 runserver 用于开发的服务器在需要的情况下会对每一次的访问请求重新载入一遍 Python 代码。所以你不需要为了让修改代码生效而频繁的重新启动服务器。然而，一些动作，比如添加新文件，将不会触发自动重新加载，这时你得自己手动重启服务器。
+   4. ### start to create your app ( python manage.py startapp polls )
 
-1. build up your APP
-   1. make sure Django installed ( python -m django --version )
-   2. startproject ( django-admin startproject mysite )
-   3. about run server ( python manage.py runserver ) # need to excute within manage.py folder
-      1. python manage.py runserver 8080  // using 8080
-      2. python manage.py runserver 0:8000  // using 0:8000
-      3. 会自动重新加载的服务器 runserver 用于开发的服务器在需要的情况下会对每一次的访问请求重新载入一遍 Python 代码。所以你不需要为了让修改代码生效而频繁的重新启动服务器。然而，一些动作，比如添加新文件，将不会触发自动重新加载，这时你得自己手动重启服务器。
-   4. start to create your app ( python manage.py startapp polls )
-
-2. write view first
+# Write View First
     the view.py is the place to name different page view and process the data then pass to template
-    1. example below  
+    1. ### example below  
     ```
     polls/views.py¶
     from django.http import HttpResponseRedirect
@@ -44,7 +42,8 @@
         ... # same as above, no changes needed.
         
     ```
-    2. use render()
+
+    1. ### use render()
     ```
     polls/views.py¶
     from django.shortcuts import render
@@ -58,8 +57,8 @@
         return render(request, 'polls/index.html', context)
     ``` 
 
-3. write rule in urls.py
-    1. the popurse for this file is for visit link
+# write rule in urls.py
+    1. ### the popurse for this file is for visit link
     ```
     polls/urls.py
     from django.urls import path
@@ -76,7 +75,7 @@
     ]
     ```
 
-    2. You need to add whole apps url to admin
+# You Need to Add Whole Apps URL to Admin
     ```
     mysite/urls.py¶
     from django.contrib import admin
@@ -89,7 +88,7 @@
         path('<int:question_id>/vote/', views.vote, name='vote'),
     ]
     ```
-4. setup database
+# Setup Database
     1. 现在，打开 mysite/settings.py 。这是个包含了 Django 项目设置的 Python 模块。
 
 通常，这个配置文件使用 SQLite 作为默认数据库。如果你不熟悉数据库，或者只是想尝试下 Django，这是最简单的选择。Python 内置 SQLite，所以你无需安装额外东西来使用它。当你开始一个真正的项目时，你可能更倾向使用一个更具扩展性的数据库，例如 PostgreSQL，避免中途切换数据库这个令人头疼的问题。
@@ -100,9 +99,9 @@ ENGINE -- 可选值有 'django.db.backends.sqlite3'，'django.db.backends.postgr
 NAME - 数据库的名称。如果使用的是 SQLite，数据库将是你电脑上的一个文件，在这种情况下， NAME 应该是此文件的绝对路径，包括文件名。默认值 os.path.join(BASE_DIR, 'db.sqlite3') 将会把数据库文件储存在项目的根目录。
 如果你不使用 SQLite，则必须添加一些额外设置，比如 USER 、 PASSWORD 、 HOST 等等。想了解更多数据库设置方面的内容，请看文档：DATABASES 。
 
-5. create models, they are the database table
-   1. create models
-   2. 给模型增加 __str__() 方法是很重要的，这不仅仅能给你在命令行里使用带来方便，Django 自动生成的 admin 里也使用这个方法来表示对象。
+# Create Models, They are the Database Table
+   1. ### create models
+   2. ### 给模型增加 __str__() 方法是很重要的，这不仅仅能给你在命令行里使用带来方便，Django 自动生成的 admin 里也使用这个方法来表示对象。
    ```
     polls/models.py
     from django.db import models
@@ -126,7 +125,7 @@ NAME - 数据库的名称。如果使用的是 SQLite，数据库将是你电脑
         def __str__(self):
         return self.choice_text
     ```
-    3. active models
+# Active Models
     ```
     mysite/settings.py
     INSTALLED_APPS = [
@@ -139,18 +138,18 @@ NAME - 数据库的名称。如果使用的是 SQLite，数据库将是你电脑
         'django.contrib.staticfiles',
     ]
     ```
-    4. migrate tables
+# Migrate Tables
     ```
     $ python manage.py makemigrations polls
     $ python manage.py migrate
     ```
-6. practice fetch data from django shell
+# Practice Fetch Data From Django Shell
     ```
     $ python manage.py shell
     ```
 
-7. create a superadmin and add apps to admin panel
-   1.  add super uers
+# Create a Superadmin and Add Apps to Admin Panel
+   1.  ### add super uers
    ```
    $ python manage.py createsuperuser
    Username: admin
@@ -159,7 +158,7 @@ NAME - 数据库的名称。如果使用的是 SQLite，数据库将是你电脑
    Password (again): *********
    Superuser created successfully.
    ```
-   2.  add apps to admin by using register()
+   2.  ### add apps to admin by using register()
    ```
     polls/admin.py¶
     from django.contrib import admin
@@ -168,9 +167,8 @@ NAME - 数据库的名称。如果使用的是 SQLite，数据库将是你电脑
 
     admin.site.register(Question)
    ```
-
-8. create template
-   1. index.html
+# create template
+   1. ### index.html
    ```
    polls/templates/polls/index.html¶
     {% if latest_question_list %}
@@ -183,7 +181,7 @@ NAME - 数据库的名称。如果使用的是 SQLite，数据库将是你电脑
         <p>No polls are available.</p>
     {% endif %}
    ```
-   2. detail.html
+   1. ### detail.html
     ```
     polls/templates/polls/detail.html¶
     <h1>{{ question.question_text }}</h1>
@@ -194,7 +192,7 @@ NAME - 数据库的名称。如果使用的是 SQLite，数据库将是你电脑
     </ul>
     ```
 
-    2. results.html
+    1. ### results.html
    ```
    polls/templates/polls/results.html¶
     <h1>{{ question.question_text }}</h1>
@@ -208,7 +206,7 @@ NAME - 数据库的名称。如果使用的是 SQLite，数据库将是你电脑
     <a href="{% url 'polls:detail' question.id %}">Vote again?</a>
     ```
 
-9.  how to use form properly
+# How to Use Form Properly
 
     ```
     polls/templates/polls/detail.html¶
@@ -228,7 +226,7 @@ NAME - 数据库的名称。如果使用的是 SQLite，数据库将是你电脑
 
 
 
-10. Testing
+# Testing
 
     ```
     # confirm the future published post won't show in recently posts
@@ -253,12 +251,14 @@ NAME - 数据库的名称。如果使用的是 SQLite，数据库将是你电脑
             self.assertIs(future_question.was_published_recently(), False)
     ```
 
-    # run test
+    ### Run Test
     ```
     python manage.py test polls
+    ```
 
 
-    # Failed Testing Below
+    ### Failed Testing Below
+    ```
     System check identified no issues (0 silenced).
     F
     ======================================================================
@@ -274,9 +274,10 @@ NAME - 数据库的名称。如果使用的是 SQLite，数据库将是你电脑
 
     FAILED (failures=1)
     Destroying test database for alias 'default'...
+    ```
 
-
-    # Succeed Testing Below
+    ### Succeed Testing Below
+    ```
     Creating test database for alias 'default'...
     System check identified no issues (0 silenced).
     .
