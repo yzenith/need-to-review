@@ -205,11 +205,11 @@ NAME - 数据库的名称。如果使用的是 SQLite，数据库将是你电脑
     {% endfor %}
     </ul>
 
-<a href="{% url 'polls:detail' question.id %}">Vote again?</a>
-
-   ```
+    <a href="{% url 'polls:detail' question.id %}">Vote again?</a>
+    ```
 
 9.  how to use form properly
+
     ```
     polls/templates/polls/detail.html¶
     <h1>{{ question.question_text }}</h1>
@@ -225,6 +225,9 @@ NAME - 数据库的名称。如果使用的是 SQLite，数据库将是你电脑
     <input type="submit" value="Vote">
     </form>
     ```
+
+
+
 10. Testing
 
     ```
