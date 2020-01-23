@@ -1,3 +1,20 @@
+# Need to make your python version as 3.7
+###This section is about how to use Python3
+
+Use Xcode and brew install python 3.7
+xcode-select —install
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+#### for into python3 shell
+In venv doing python3
+```
+python3 -m venv ~/.virtualenvs/myvenv
+source ~/.virtualenvs/myvenv/bin/activate
+deactivate
+```
+一般虚拟环境下安装过Django，就不用再安装了。开启就行
+
+
 # Build Up Your APP
    1.  make sure Django installed ( python -m django --version )
    2.  startproject ( django-admin startproject mysite )
