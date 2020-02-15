@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/29c32e6b9d.js" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <!-- Google API for auto complete and jQuery-->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{Your_key}}&libraries=places"></script>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+    <!-- datepicker css -->
+    <link id="bsdp-css" href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+
+    <title>Lifecare hotels</title>
+
+  </head>
+  <body>
+    <div class="container border">
+      <form action="http://www.getaroom.com/searches/show?" method="get" target="_blank" class="p-4">
+        <!-- Headline -->
+        <div class="row mb-4">
+            <h2 class="col-12 col-sm-12 col-md-12 col-lg-12">
+              Find a Hotel
+              <small class="col-12 col-sm-12 col-md-12 col-lg-12 text-muted m-auto">Over 130,000 HOTELS WORLDWIDE</small>
+            </h2>
+        </div>
+        <hr class="md-1">
+        <input id="affiliate" name="affiliate" type="hidden" value="8676f073"/>
+        <div class="row">
+        <!-- city name -->
+        <div class="form-group col-md-12 mb-3 col-sm-4 col-12">
+          <label for="city"><i class="fas fa-location-arrow"></i> Your Desination</label>
+          <input type="text" class="form-control" id="city" placeholder="City or Airport" name="city" required onchange="fetchValue()">
+        </div>
+        <!-- destintion name  -->
+        <div class="form-group col-md-12 mb-3 col-sm-4 col-12" style="display: none">
+            <label for="desination"><i class="fas fa-location-arrow"></i> Your Desination Copy</label>
+            <input type="text" class="form-control" id="destination" name="destination" value="Dallas">
+        </div>
+        <!-- checkin & checkout -->
+          <div class="form-group col-md-4 mb-4 col-sm-6 col-4 datepicker">
+            <label for="CheckInDate"><i class="far fa-calendar-alt">&#9;</i> Check_in</label>
+            <input data-provide="datepicker" type="datetime" class="form-control" id="CheckInDate" name="check_in" placeholder="mm/dd/yyyy" required onchange="nights()">
+          </div>
+          <div class="form-group col-md-4 mb-4 col-sm-6 col-4 datepicker">
+            <label for="CheckOutDate"><i class="far fa-calendar-alt">&#9;</i> Check_out</label>
+            <input data-provide="datepicker" type="datetime" class="form-control" id="CheckOutDate" name="check_out" placeholder="mm/dd/yyyy" required onchange="nights()">
+          </div>
+          <div class="form-group col-md-4 mb-4 col-sm-12 col-4 m-auto">
+              <div class="text-center text-muted text-uppercase">Nights</div>
+              <div class="bg-primary text-white text-center m-auto" id="nights" style="width: 15%; height: auto">0</div>
+          </div>
+      </div>
+
+        <!-- Rooms area -->
+        <div class="row mt-2">
+        <div class="form-group col-4">
+          <label for="num_rooms"><i class="fas fa-hotel"></i> Rooms</label>
+          <select class="custom-select" id="num_rooms" name="num_rooms">
+              <option selected value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+          </select>
+        </div>
+        <!-- Adults area -->
+        <div class="form-group col-sm col-4">
+          <label for="adults"><i class="fas fa-user-friends"></i> Adults</label>
+          <select class="custom-select" id="adults" name="adults">
+              <option selected value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+          </select>
+        </div>
+        <!-- Children area -->
+        <div class="form-group col-sm col-4">
+            <label for="children"><i class="fas fa-baby"></i> Children</label>
+            <select class="custom-select" id="children" name="children">
+                <option selected value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+            </select>
+          </div>
+        </div>
+        <!-- submit buttom -->
+        <div class="form-group row">
+          <h5 class="col-xs-8 col-sm-8 col-md-8 col-lg-8 text-left m-auto text-primary"><i class="fas fa-check"></i> Lifecare slogan</h5>
+          <button class="btn btn-lg btn-wide btn-primary mt-3 col-xs-4 col-sm-4 col-md-4 col-lg-4" name="Search" type="submit"><span class="buttonContent">Search</span></button>
+        </div>
+      </form>
+  </div>
+
+    
+    <script>
+      // Google API jQuery  Auto Completion
+      let input = document.getElementById('city');
+      let autocomplete = new google.maps.places.Autocomplete(input,{types: ['(cities)']});
+      
+      function fetchValue(){
+        document.getElementById("destination").value = document.getElementById('city').value.split(',')[0];
+      }
+      
+      // datepicker jQuery
+      $("#CheckInDate").datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        orientation: "bottom left",
+        format: 'mm/dd/yyyy',
+        startDate: 'today',
+      });
+
+      $("#CheckOutDate").datepicker({
+        autoclose: true,
+        orientation: "bottom right",
+        format: 'mm/dd/yyyy',
+        startDate: '+1d'
+      });
+
+      // nights count
+      function nights(){
+        if(document.getElementById("CheckInDate").value.length != 0 && document.getElementById("CheckOutDate").value.length != 0){
+          let CheckInDate = new Date(document.getElementById("CheckInDate").value);
+          let CheckOutDate = new Date(document.getElementById("CheckOutDate").value);
+          if(document.getElementById("nights").innerHTML = (CheckOutDate - CheckInDate)/86400000 <= 30){
+            return document.getElementById("nights").innerHTML = (CheckOutDate - CheckInDate)/86400000;
+          }else{
+            alert("The max date is 30 days");
+            document.getElementById("nights").innerHTML = 0;
+          }
+        }else{
+          document.getElementById("nights").innerHTML = 0;
+        }
+      }
+
+      // circle shape
+      $(document).ready(function(){
+        $("#nights").css("border-radius", "50%");
+      })
+      
+
+    </script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
